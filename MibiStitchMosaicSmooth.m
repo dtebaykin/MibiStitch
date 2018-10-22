@@ -32,11 +32,6 @@ direction = 0; % Choose starting stitch direction: 0 = left, 1 = right
 
 %% new stitch
 % X and Y refer to pixel matrix row and column
-%ydRight = 28; % Shift this many pixels into previous frame when moving right
-%xdRight = 2; % Vertical tilt of the image, shift this many pixels up each time when moving right
-%ydTop = 10; % Shift right by ydTop pixels when moving up one row. Horizontal tilt
-%xdTop = -33; % Should be negative or 0. Controls vertical coregistration when moving up one row. Positive value would yield blank space between rows
-
 ydRight = 40; % Shift this many pixels when moving right
 xdRight = 2; % Vertical tilt of the image, shift this many pixels up each time when moving right
 ydTop = 10; % Shift right by ydTop pixels when moving up one row. Horizontal tilt
