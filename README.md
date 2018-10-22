@@ -12,5 +12,6 @@ Setup and usage:
 3) Check the generated XML:
   Use MibiDrawDirection.m (with the newly generated XML file)
 4) ------- Perform MIBI run -------
+
 5a) If stitching a single channel: use MibiStitchMosaicSmooth.m (Follow instructions inside the script for settings)
 5b) If stitching multiple channels: use MibiStitchAllChannels.m (Follow instructions inside the script for settings)
