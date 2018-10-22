@@ -13,6 +13,8 @@ OutputFolder = [pwd];
 % Point to folder where the Point folders with TIFs are located. pwd stands for current
 % working directory (path at the top of Matlab)
 % Example for a different folder: TIFs_PATH = [pwd, '/extracted']
+% This relies on your TIFs being inside TIFs_PATH/PointX/TIFs/ folder. To
+% change this - modify MibiStitchLoopSupport around line 62
 TIFs_PATH = [pwd]; 
 dataSize = 508; % Resolution of one frame, minus 4 pixels. Example: 512x512 - 4 = 508
 
@@ -34,7 +36,17 @@ xdRight = 2; % Vertical tilt of the image, shift this many pixels up each time w
 ydTop = 10; % Shift right by ydTop pixels when moving up one row. Horizontal tilt
 xdTop = -33; % Should be negative or 0. Controls vertical coregistration when moving up one row. Positive value would yield blank space between rows
 
-allChannels = ["dsDNA", "CD56"];
+% Gather all channel names
+ImageNamesP = dir([TIFs_PATH,'/Point1/TIFs/*tif']);
+ImageNamesP = {ImageNamesP.name};
+ImageNames{1, length(ImageNamesP)} = [];
+for i = 1:length(ImageNamesP)
+    ImageNames{1,i} = ImageNamesP{i};
+end
+allChannels = ImageNames;
+
+% Overwrite the above to stitch specific channels only
+%allChannels = ["dsDNA", "CD56"];
 
 %% Calculating the rest of the offsets and starting the loop
 ydRight = dataSize - ydRight; % Adjusting for the relative shift when going right
@@ -49,8 +61,8 @@ for k = 1:floor(dataSize/2)
 end
 
 % Start the loop
-for channel = allChannels
-    channel = char(channel);
+for channelNonChar = allChannels
+    channel = char(channelNonChar);
     disp(['Making stitched TIF for: ', channel]);
     MibiStitchLoopSupport;
 end

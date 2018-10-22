@@ -1,6 +1,6 @@
 %addpath(genpath('/Volumes/KosaliaMIBI/MibiPipelineOld'),1) 
 function MibiWriteTilingXmlCenterRect(outputFileName,inputFileName,TileSize,xNum,yNum,Overlap)
-% Add this line in command window MibiWriteTilingXml('outputFileName.xml','inputFileName.xml',TileSize,NumRows,NumCols,Overlap)
+% Add this line in command window MibiWriteTilingXmlCenterRect('outputFileName.xml','inputFileName.xml',TileSize,NumRows,NumCols,Overlap)
 % example: MibiWriteTilingXmlCenterRect('test.xml','180615-HIGHPRESET.xml',5600,5,6,200)
 
 % fill in the outputfilename, inputfilename, tilesize and Overlap 
