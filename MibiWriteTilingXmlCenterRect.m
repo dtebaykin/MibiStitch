@@ -1,23 +1,22 @@
-%addpath(genpath('/Volumes/KosaliaMIBI/MibiPipelineOld'),1) 
 function MibiWriteTilingXmlCenterRect(outputFileName,inputFileName,TileSize,xNum,yNum,Overlap)
 % Add this line in command window MibiWriteTilingXmlCenterRect('outputFileName.xml','inputFileName.xml',TileSize,NumRows,NumCols,Overlap)
 % example: MibiWriteTilingXmlCenterRect('test.xml','180615-HIGHPRESET.xml',5600,5,6,200)
 
 % fill in the outputfilename, inputfilename, tilesize and Overlap 
 % Function creates an xml to tile a large rectangle area
-% outputFileName - the output in xml file
+% outputFileName - the output xml file
 % inputFileName - the input xml file with center point coordinates
 % TileSize - the size of each frame in motor(MIBI) units
 % xNum - number of frames(points) in one column
-% yNum - numer of frames(points) in one row
-% Overlap - the amount of overlap between the frames
+% yNum - number of frames(points) in one row
+% Overlap - the amount of overlap between two adjacent frames
 
 %% read input xml
 textXML = fileread(inputFileName);
 paramNames= {'XAttrib', 'YAttrib'};
-%it means coord={0,0:0,0] to create an array of zeros fo two rows two
-%columns to pre-allocate/reserve space in the computer.
-%helps to makeand display the initial XAttrib and YAttrib corrdinate for Points A and C like so:
+% it means coord={0,0:0,0} to create an array of zeros for two rows two
+% columns to pre-allocate/reserve space in the computer.
+% It helps to make and display the initial XAttrib and YAttrib coordinate for Points A and C like so:
 %-85500      216680
 %-85500      222080
 coord = zeros(3,2);

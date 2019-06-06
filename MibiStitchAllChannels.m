@@ -19,25 +19,25 @@ TIFs_PATH = [pwd];
 dataSize = 508; % Resolution of one frame, minus 4 pixels. Example: 512x512 - 4 = 508
 
 % Stitch start and end points.
-startPoint = 2; % Start stitching from this point number
+startPoint = 1; % Start stitching from this point number
 endPoint = 0; % End stitching with this point number. Zero means all points to the end
 skipPoints = []; % These points will be skipped during stitching (The stitch should advance, leaving a blank space)
 
 %% Set these if no XML is available
 % Set stitching parameters manually if no XML file is available
-xNumPoint = 12; % Set this to the number of rows
-yNumPoint = 9; % Set this to the number of columns
+xNumPoint = 0; % Set this to the number of rows
+yNumPoint = 0; % Set this to the number of columns
 direction = 0; % Choose starting stitch direction: 0 = left, 1 = right
 
 % new stitch
 % X and Y refer to pixel matrix row and column
-ydRight = 28; % Shift this many pixels when moving right
-xdRight = 2; % Vertical tilt of the image, shift this many pixels up each time when moving right
-ydTop = 10; % Shift right by ydTop pixels when moving up one row. Horizontal tilt
-xdTop = -33; % Should be negative or 0. Controls vertical coregistration when moving up one row. Positive value would yield blank space between rows
+ydRight = 0; % Shift this many pixels when moving right
+xdRight = 0; % Vertical tilt of the image, shift this many pixels up each time when moving right
+ydTop = 0; % Shift right by ydTop pixels when moving up one row. Horizontal tilt
+xdTop = 0; % Should be negative or 0. Controls vertical coregistration when moving up one row. Positive value would yield blank space between rows
 
 % Gather all channel names
-ImageNamesP = dir([TIFs_PATH,'/Point1/TIFs/*tif']);
+ImageNamesP = dir([TIFs_PATH,'/Point', num2str(startPoint),'/TIFs/*tif']);
 ImageNamesP = {ImageNamesP.name};
 ImageNames{1, length(ImageNamesP)} = [];
 for i = 1:length(ImageNamesP)

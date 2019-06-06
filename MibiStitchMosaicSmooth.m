@@ -26,56 +26,32 @@ skipPoints = []; % These points will be skipped during stitching (The stitch sho
 
 %% Set these if no XML is available
 % Set stitching parameters manually if no XML file is available
-xNumPoint = 12; % Set this to the number of rows
-yNumPoint = 9; % Set this to the number of columns
+xNumPoint = 0; % Set this to the number of rows
+yNumPoint = 0; % Set this to the number of columns
 direction = 0; % Choose starting stitch direction: 0 = left, 1 = right
 
 %% new stitch
 % X and Y refer to pixel matrix row and column
-ydRight = 40; % Shift this many pixels when moving right
-xdRight = 2; % Vertical tilt of the image, shift this many pixels up each time when moving right
-ydTop = 10; % Shift right by ydTop pixels when moving up one row. Horizontal tilt
-xdTop = -140; % Should be negative or 0. Controls vertical coregistration when moving up one row. Positive value would yield blank space between rows
+ydRight = 0; % Shift this many pixels when moving right
+xdRight = 0; % Vertical tilt of the image, shift this many pixels up each time when moving right
+ydTop = 0; % Shift right by ydTop pixels when moving up one row. Horizontal tilt
+xdTop = 0; % Should be negative or 0. Controls vertical coregistration when moving up one row. Positive value would yield blank space between rows
 
 %% New stitch and the rest of offsets
 % Calculate other offsets based on the above presets
 ydLeft = ydRight; % do not change
 ydRight = dataSize - ydRight; % do not change
 xdLeft = -xdRight; % do not change
-
-
-if exist(xmlFileName, 'file')
-    textXML = fileread(xmlFileName);
-    paramNames= {'XAttrib', 'YAttrib'};
-    pointsLoc = zeros(0,2);
-
-    for i=1:length(paramNames)
-        pattern=[paramNames{i},'="([\+-\w.]+)"\>'];
-        [matchExp,tok,ext]= regexp(textXML, pattern, 'match','tokens','tokenExtents');
-    
-        for j=1:length(tok)
-            pointsLoc(j,i) = str2double(tok{j}{1});
-        end
-    end
-    
-    % Calculate number of rows and cols
-    if endPoint == 0
-        endPoint = length(pointsLoc);
-    end
-    
-else
-    disp('XML file not found, using scripts preset parameters.');
  
-    if endPoint == 0
-        endPoint = xNumPoint * yNumPoint;
-    end
-   
-    if (direction == 0)
-        startPosGlobal = ([(xNumPoint - 1/2) * dataSize, (yNumPoint - 1/2) * dataSize]); % Starting point: bottom right
-    else
-        startPosGlobal = ([(xNumPoint - 1/2) * dataSize, (1/2) * dataSize]); % Starting point: bottom left
-    end 
+if endPoint == 0
+    endPoint = xNumPoint * yNumPoint;
 end
+
+if (direction == 0)
+    startPosGlobal = ([(xNumPoint - 1/2) * dataSize, (yNumPoint - 1/2) * dataSize]); % Starting point: bottom right
+else
+    startPosGlobal = ([(xNumPoint - 1/2) * dataSize, (1/2) * dataSize]); % Starting point: bottom left
+end 
 
 % Create list of points for this stitch
 pointList = startPoint : endPoint + 1;

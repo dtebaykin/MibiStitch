@@ -2,36 +2,37 @@
 % Author: Dmitry Tebaykin
 % Contact: dmitry.tebaykin@stanford.edu
 
-if exist(xmlFileName, 'file')
-    textXML = fileread(xmlFileName);
-    paramNames= {'XAttrib', 'YAttrib'};
-    pointsLoc = zeros(0,2);
+% if exist(xmlFileName, 'file')
+%    textXML = fileread(xmlFileName);
+%    paramNames= {'XAttrib', 'YAttrib'};
+%    pointsLoc = zeros(0,2);
 
-    for i=1:length(paramNames)
-        pattern=[paramNames{i},'="([\+-\w.]+)"\>'];
-        [matchExp,tok,ext]= regexp(textXML, pattern, 'match','tokens','tokenExtents');
+%    for i=1:length(paramNames)
+%        pattern=[paramNames{i},'="([\+-\w.]+)"\>'];
+%        [matchExp,tok,ext]= regexp(textXML, pattern, 'match','tokens','tokenExtents');
 
-        for j=1:length(tok)
-            pointsLoc(j,i) = str2double(tok{j}{1});
-        end
-    end
+%        for j=1:length(tok)
+%            pointsLoc(j,i) = str2double(tok{j}{1});
+%        end
+%    end
 
     % Calculate number of rows and cols
-    if endPoint == 0
-        endPoint = length(pointsLoc);
-    end
+%    if endPoint == 0
+%        endPoint = length(pointsLoc);
+%    end
 
-else
-    if endPoint == 0
-        endPoint = xNumPoint * yNumPoint;
-    end
-
-    if (direction == 0)
-        startPosGlobal = ([(xNumPoint - 1/2) * dataSize, (yNumPoint - 1/2) * dataSize]); % Starting point: bottom right
-    else
-        startPosGlobal = ([(xNumPoint - 1/2) * dataSize, (1/2) * dataSize]); % Starting point: bottom left
-    end 
+%else
+% disp('XML file not found, using scripts preset parameters.');
+if endPoint == 0
+    endPoint = xNumPoint * yNumPoint;
 end
+
+if (direction == 0)
+    startPosGlobal = ([(xNumPoint - 1/2) * dataSize, (yNumPoint - 1/2) * dataSize]); % Starting point: bottom right
+else
+    startPosGlobal = ([(xNumPoint - 1/2) * dataSize, (1/2) * dataSize]); % Starting point: bottom left
+end 
+%end
 
 % Create list of points for this stitch
 pointList = startPoint : endPoint + 1;
@@ -59,7 +60,7 @@ for i=1:xNumPoint
         end
 
         % Get current data frame 
-        currData = double(imread([TIFs_PATH, '/Point', num2str(pointList(currPoint)), '/TIFs/', channel, '.tif']));
+        currData = double(imread([TIFs_PATH, '/Point', num2str(pointList(currPoint)), '/TIFs/', channel]));
         currData = currData(3 : dataSize + 2, 3 : dataSize + 2);
 
         % Get first position
