@@ -118,10 +118,10 @@ for i=1:xNum
             
             % This changes point names from 'topleft' to 'PointX' where X
             % is the point number. 
-            toName = strfind(currStr,'<Point PointName=');
-            if toName
-                currStr = strrep(currStr, 'topleft', ['Point', num2str((i-1)*yNum+j)]);
-            end
+            %toName = strfind(currStr,'<Point PointName=');
+            %if toName
+            %    currStr = strrep(currStr, 'topleft', ['Point', num2str((i-1)*yNum+j)]);
+            %end
             
             tof = strfind(currStr,'<RowNumber0');
             if tof
