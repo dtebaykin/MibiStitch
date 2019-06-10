@@ -117,16 +117,16 @@ for i=1:xNum
             currStr = strrep(currStr,'\','\\');
             
             % This changes point names from 'topleft' to 'PointX' where X
-            % is the point number. Comment out if problem
-%             %toName = strfind(currStr,'<Point PointName=');
-%             if toName
-%                 currStr = strrep(currStr, 'topleft', ['Point', num2str((i-1)*yNum+j)]);
-%             end
+            % is the point number. 
+            toName = strfind(currStr,'<Point PointName=');
+            if toName
+                currStr = strrep(currStr, 'topleft', ['Point', num2str((i-1)*yNum+j)]);
+            end
             
             tof = strfind(currStr,'<RowNumber0');
             if tof
-                currStr = strrep(currStr,num2str(coord(1,1)),num2str(pointsLoc((i-1)*yNum+j,1)));
-                currStr = strrep(currStr,num2str(coord(1,2)),num2str(pointsLoc((i-1)*yNum+j,2)));
+                currStr = strrep(currStr,num2str(coord(3,1)),num2str(pointsLoc((i-1)*yNum+j,1)));
+                currStr = strrep(currStr,num2str(coord(3,2)),num2str(pointsLoc((i-1)*yNum+j,2)));
                 %currStr = strcat(currStr, MIBIStub, '\n');
             end
             fprintf(fileID,currStr);
