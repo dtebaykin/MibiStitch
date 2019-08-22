@@ -9,9 +9,8 @@
 % Contact: dmitry.tebaykin@stanford.edu
 
 function currentAdj = MibiCalcOverlap(previous, current, weights)
-% TODO: consider OVERLAP_BUFFER - area before the overlap that does not
-% inherit from the other frame, but is affected by overlaps brightness
-% values. Default: 0 pixels
+% Area before the overlap that does not inherit from the other frame
+%OVERLAP_BUFFER = 20;
 
 currentAdj = current;
 
@@ -23,22 +22,9 @@ if isempty(val)
     return;
 end
 
-% Calculate distances from each point in the overlap to the center of the
-% current frame.
-% distances = zeros(1,length(val));
-% for i = 1:length(val)
-%     distances(i) = pdist([ceil(nrow / 2), ceil(ncol / 2); row(i), col(i)]);
-% end
-
 % Find the maximum weight
-%[~, minInd] = min(distances);
-% if row(minInd) > floor(nrow / 2) && col(minInd) > floor(ncol / 2)
-%     row(minInd) = nrow - row(minInd);
-%     col(minInd) = ncol - col(minInd);
-% end
-% maxWeight = max(row(minInd), col(minInd));
-idx = sub2ind(size(weights), row, col);
-maxWeight = max(weights(idx));
+%maxWeightIndex = min([max(row), max(col)]);
+%maxWeight = weights(maxWeightIndex, maxWeightIndex);
 
 % Adjust the current frame accordingly
 % For now: assuming previous frame does not go past center of the current
@@ -46,5 +32,11 @@ maxWeight = max(weights(idx));
 for k = 1:length(val)
     i = row(k);
     j = col(k);
-    currentAdj(i, j) = round((maxWeight - weights(i,j) + 1) / maxWeight * previous(i,j) + weights(i,j) / maxWeight * current(i,j));
+    %currentAdj(i, j) = round((maxWeight - weights(i,j) + 1) / maxWeight * previous(i,j) + weights(i,j) / maxWeight * current(i,j));
+    if i >= j
+        currentAdj(i, j) = mean([previous(i,j),current(i,j)]) / 4; % Intensity for ROW overlap
+    else
+        currentAdj(i, j) = mean([previous(i,j),current(i,j)]) / 2; % Intensity for COL overlap
+    end
 end
+
