@@ -6,7 +6,7 @@ function [h1, h2] = plot_dir (vX, vY, xPos, yPos)
 %   vY = sin (vX);
 %   plot_dir(vX, vY);
 
-rMag = 0.5;
+rMag = 0.8;
 
 % Length of vector
 lenTime = length(vX);
